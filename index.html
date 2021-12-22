@@ -5,23 +5,45 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>디바이스 체크</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.5/mobile-detect.min.js"></script>
 </head>
 <body>
   <button id="detect_button">디바이스 확인</button>
 
+  <ul id="device_list">
+  </ul>
+
   <script type="text/javascript">
 
-    $('#detect_button').click(function() {
-      var detector = new MobileDetect(window.navigator.userAgent);
+    const button = document.getElementById('detect_button');
+    
+    let detector = new MobileDetect(window.navigator.userAgent);
+    
+    let deviceCheck = [
+      detector.mobile(),
+      detector.phone(),
+      detector.tablet(),
+      detector.os(),
+      detector.userAgent()
+    ]
 
-      alert("Mobile:" + detector.mobile());    
-      alert("Phone:" + detector.phone());         
-      alert("Tablet:" + detector.tablet());        
-      alert("Os:" + detector.os());              
-      alert("UserAgent:" + detector.userAgent());      
-    });
+    // let mobile = ("Mobile:" + detector.mobile());    
+    // let phone = ("Phone:" + detector.phone());         
+    // let tablet = ("Tablet:" + detector.tablet());        
+    // let os = ("Os: " + detector.os());              
+    // let userAgent = ("UserAgent:" + detector.userAgent());      
+    
+    button.addEventListener('click', ()=> {
+    
+      const deviceInfo = document.getElementById('device_list');
+      let li = document.createElement('li');
+      
+      for(let i =0; i < deviceCheck.length; i++){
+        deviceInfo.innerHTML += "<li>" + deviceCheck[i] + "</li>";
+      }
+      
+    }); 
+
 
   </script>
 </body>
